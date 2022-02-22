@@ -1,0 +1,67 @@
+/* заморачиваться с модулями нет смысла */
+.App {
+  text-align: center;
+  font-weight: bold;
+  font-size: large;
+  background-color: rgb(36, 36, 36);
+  color: white;
+}
+
+/* захотел разметить так */
+.magicsquare {
+  display: grid;
+  
+  grid-template-areas:
+  "s1 s2 s3"
+  "s4 s5 s6"
+  "s7 s8 s9";
+  
+  grid-template-rows: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
+  /*grid-gap: 5px;*/
+
+  width: 120px;
+  height: 120px;
+  position: absolute;
+}
+
+.square1 { grid-area: s1; }
+.square2 { grid-area: s2; }
+.square3 { grid-area: s3; }
+.square4 { grid-area: s4; }
+.square5 { grid-area: s5; }
+.square6 { grid-area: s6; }
+.square7 { grid-area: s7; }
+.square8 { grid-area: s8; }
+.square9 { grid-area: s9; }
+
+.magicsquare button {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(36, 36, 36);
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.magicsquare button:hover {
+  box-shadow: 0 0 12px 0 grey;
+}
+
+.square5 table {
+  width: 100%;
+  height: 100%;
+}
+
+.grid {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  background-color: rgb(36, 36, 36);
+}
+
+.grid td {
+  border: 1px dotted gray;
+  min-width: 114px;
+  height: 114px;
+}
