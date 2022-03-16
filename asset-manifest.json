@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/magicsquare/static/css/main.3535fca4.css",
+    "main.js": "/magicsquare/static/js/main.407fb0d9.js",
+    "static/js/787.8b1cd2d5.chunk.js": "/magicsquare/static/js/787.8b1cd2d5.chunk.js",
+    "index.html": "/magicsquare/index.html",
+    "main.3535fca4.css.map": "/magicsquare/static/css/main.3535fca4.css.map",
+    "main.407fb0d9.js.map": "/magicsquare/static/js/main.407fb0d9.js.map",
+    "787.8b1cd2d5.chunk.js.map": "/magicsquare/static/js/787.8b1cd2d5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3535fca4.css",
+    "static/js/main.407fb0d9.js"
+  ]
+}
