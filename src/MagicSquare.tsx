@@ -1,40 +1,53 @@
 // Магический Квадрат
 
+import React from "react"
+import {ActionType} from "./App"
+
 type PropsType = {
     value: number
     x: number
     y: number
-    upButtonClickHandler: () => void
-    leftButtonClickHandler: () => void
-    rightButtonClickHandler: () => void
-    downButtonClickHandler: () => void
+    preMoveHandler: (a: ActionType) => void
 }
 
-const MagicSquare = (props: PropsType) => {
+const MagicSquare = React.memo((props: PropsType) => {
+
+    function upButtonClickHandler() {
+        props.preMoveHandler('UP')
+    }
+    function leftButtonClickHandler() {
+        props.preMoveHandler('LEFT')
+    }
+    function rightButtonClickHandler() {
+        props.preMoveHandler('RIGHT')
+    }
+    function downButtonClickHandler() {
+        props.preMoveHandler('DOWN')
+    }
 
     return (
         <div className="magicsquare" style={{left:props.y*120+11, top:props.x*120+11}}>
             <div className="square1"></div>
             <div className="square2">
-                <button onClick={props.upButtonClickHandler}>UP</button>
+                <button onClick={upButtonClickHandler}>UP</button>
             </div>
             <div className="square3"></div>
             <div className="square4">
-                <button onClick={props.leftButtonClickHandler}>L</button>
+                <button onClick={leftButtonClickHandler}>L</button>
             </div>
             <div className="square5">
                 <table><tr><td>{props.value}</td></tr></table>
             </div>
             <div className="square6">
-                <button onClick={props.rightButtonClickHandler}>R</button>
+                <button onClick={rightButtonClickHandler}>R</button>
             </div>
             <div className="square7"></div>
             <div className="square8">
-                <button onClick={props.downButtonClickHandler}>DN</button>
+                <button onClick={downButtonClickHandler}>DN</button>
             </div>
             <div className="square9"></div>
         </div>
     )
-}
+})
 
 export default MagicSquare

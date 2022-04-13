@@ -1,22 +1,20 @@
 // Игровое поле
 
-import logo from './logo.svg'
+import React from "react"
+import MagicCell from "./MagicCell"
 
 type PropsType = {
-    value: Array<Array<number>>
+    grid: Array<Array<number>>
 }
 
-const MagicTable = (props: PropsType) => {
+const MagicTable = React.memo((props: PropsType) => {
 
     return (
         <table className="grid">
-            {props.value.map(v =>
-                (<tr>{v.map((v, index) =>
-                    (<td key={index}>{v === 0 ? '' :
-                        v === 100 ? 'X' :
-                            v === 101 ? <img src={logo} className="logo" alt="O" /> : v}</td>))}</tr>))}
+            {props.grid.map(v =>
+                (<tr>{v.map((v, index) => <MagicCell v={v} index={index} />)}</tr>))}
         </table>
     )
-}
+})
 
 export default MagicTable

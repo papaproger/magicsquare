@@ -3,7 +3,7 @@
 //       "Magic Square" by PapaProger       //
 //   (игра, в которой можно и не выиграть)  //
 //                                          //
-//          version 1.1 13.04.2022          //
+//          version 1.2 14.04.2022          //
 //                                          //
 //******************************************//
 
@@ -46,15 +46,15 @@ type MagicSquareType = {
   // count from 0
   x: number // horizontal, row
   y: number // vertical, column
-  // разрешено ли движение
+  // разрешено ли движение; не использую для коллбэков; для обработчика перемещений;
   canMove: boolean
 }
 
 // Типы перемещений
-type ActionType = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT'
+export type ActionType = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT'
 
 // Генерирует число в заданном диапазоне
-function getRandomValue(min: number, max: number) {
+function getRandomValue(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
@@ -83,46 +83,40 @@ function getNumberedGrid(mt: MagicTableType): Array<Array<number>> {
   return masterArray
 }
 
-// Массив значений клеток игрового поля
-let grid = getNumberedGrid(magicTable)
-
 //----------------------------------------------------------------------------------------------------//
 
 const App = () => {
 
-  // Инициализация состояния Магического Квадрата
-  let [magicSquare, setMagicSquare] = useState<MagicSquareType>({rowGridNumber: 6, columnGridNumber: 9,
-    value: getRandomValue(magicTable.minValue, magicTable.maxValue), x: 0, y: 0, canMove: false})
+  // Инициализация массива значений клеток игрового поля и состояния Магического Квадрата
+  let [[grid, magicSquare], setGameParams] = useState<[Array<Array<number>>, MagicSquareType]>([
+    getNumberedGrid(magicTable),
+    {
+      rowGridNumber: 6,
+      columnGridNumber: 9,
+      value: getRandomValue(magicTable.minValue, magicTable.maxValue),
+      x: 0,
+      y: 0,
+      canMove: false
+    }
+  ])
 
-  // По нажатию кнопки Вверх
-  function UpButtonClickHandler()  {
-    setMagicSquare(MoveHandler(magicSquare, 'UP'))
-  }
-  
-  // По нажатию кнопки Влево
-  function LeftButtonClickHandler() {
-    setMagicSquare(MoveHandler(magicSquare, 'LEFT'))
-  }
-  
-  // По нажатию кнопки Вправо
-  function RightButtonClickHandler() {
-    setMagicSquare(MoveHandler(magicSquare, 'RIGHT'))
-  }
-  
-  // По нажатию кнопки Вниз
-  function DownButtonClickHandler() {
-    setMagicSquare(MoveHandler(magicSquare, 'DOWN'))
+  // Передаем тип движения в обработчик перемещений
+  function preMoveHandler(a: ActionType): void {
+    setGameParams(MoveHandler(grid, magicSquare, a))
   }
 
   // Обработчик перемещений
-  function MoveHandler (ms: MagicSquareType, action: ActionType) {
+  function MoveHandler (g: Array<Array<number>>, ms: MagicSquareType, action: ActionType):
+    [Array<Array<number>>, MagicSquareType] {
 
-    let msc = {...ms} // плохо
+    // плохо
+    let gc = [...g]
+    let msc = {...ms}
 
     switch(action) {
 
       case 'UP': {
-        if (ms.value > 0 && ms.x > 0 && grid[ms.x - 1][ms.y] < 100) {
+        if (ms.value > 0 && ms.x > 0 && g[ms.x - 1][ms.y] < 100) {
 
           msc.x = ms.x - 1
           msc.y = ms.y
@@ -132,7 +126,7 @@ const App = () => {
       }
 
       case 'LEFT': {
-        if (ms.value > 0 && ms.y > 0 && grid[ms.x][ms.y - 1] < 100) {
+        if (ms.value > 0 && ms.y > 0 && g[ms.x][ms.y - 1] < 100) {
 
           msc.x = ms.x
           msc.y = ms.y - 1
@@ -143,7 +137,7 @@ const App = () => {
 
       case 'RIGHT': {
         if (ms.value > 0 && ms.y < ms.columnGridNumber - 1
-          && grid[ms.x][ms.y + 1] < 100) {
+          && g[ms.x][ms.y + 1] < 100) {
     
             msc.x = ms.x
             msc.y = ms.y + 1
@@ -154,7 +148,7 @@ const App = () => {
       
       case 'DOWN': {
         if (ms.value > 0 && ms.x < ms.rowGridNumber - 1
-          && grid[ms.x + 1][ms.y] < 100) {
+          && g[ms.x + 1][ms.y] < 100) {
           
             msc.x = ms.x + 1
             msc.y = ms.y
@@ -166,29 +160,26 @@ const App = () => {
     
     if(msc.canMove) {
       
-      msc.value = msc.value + grid[msc.x][msc.y] - 1
-      grid[msc.x][msc.y] = 0
-      grid[ms.x][ms.y] = 100
+      msc.value += g[msc.x][msc.y] - 1
+      gc[msc.x][msc.y] = 0
+      gc[ms.x][ms.y] = 100
       msc.canMove = false
       
-      return msc
+      return [gc, msc]
     }
     
-    return ms
+    return [g, ms]
 }
 
   // Отрисовка
   return (
     <div className="App">
 
-      <MagicTable value={grid} />
+      <MagicTable grid={grid} />
       <MagicSquare value={magicSquare.value}
       x={magicSquare.x}
       y={magicSquare.y}
-      upButtonClickHandler={UpButtonClickHandler}
-      leftButtonClickHandler={LeftButtonClickHandler}
-      rightButtonClickHandler={RightButtonClickHandler}
-      downButtonClickHandler={DownButtonClickHandler} />
+      preMoveHandler={preMoveHandler} />
       
     </div>
   )

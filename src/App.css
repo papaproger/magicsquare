@@ -68,6 +68,11 @@
   height: 114px;
 }
 
+.step {
+  width: 30px;
+  height: 30px;
+}
+
 /* вращающееся лого */
 .logo {
   pointer-events: none;
