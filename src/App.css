@@ -1,9 +1,11 @@
 /* заморачиваться с модулями нет смысла */
+
+/* body { background-color: rgb(36, 36, 36); } */
+
 .App {
   text-align: center;
   font-weight: bold;
   font-size: large;
-  background-color: rgb(36, 36, 36);
   color: white;
 }
 
@@ -64,4 +66,26 @@
   border: 1px dotted gray;
   min-width: 114px;
   height: 114px;
+}
+
+/* вращающееся лого */
+.logo {
+  pointer-events: none;
+  width: 80px;
+  height: 80px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

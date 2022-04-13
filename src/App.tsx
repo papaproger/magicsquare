@@ -3,8 +3,7 @@
 //       "Magic Square" by PapaProger       //
 //   (игра, в которой можно и не выиграть)  //
 //                                          //
-//                22.02.2022                //
-//      version 1.0 (наколхозил a lot)      //
+//          version 1.1 13.04.2022          //
 //                                          //
 //******************************************//
 
@@ -22,7 +21,9 @@ type MagicTableType = {
   minValue: number
   maxValue: number
   // число запасных ходов
-  papaDecidesWhatNumberToUse: number
+  papaGivesAdditionalSteps: number
+  // число блоков непроходимости
+  papaBlocksYourWayOff: number
 }
 
 // Задание параметров игрового поля
@@ -31,7 +32,8 @@ let magicTable: MagicTableType = {
   columnGridNumber: 9,
   minValue: 3,
   maxValue: 15,
-  papaDecidesWhatNumberToUse: 7,
+  papaGivesAdditionalSteps: 7,
+  papaBlocksYourWayOff: 5,
 }
 
 // Определение типа Магического Квадрата
@@ -57,22 +59,28 @@ function getRandomValue(min: number, max: number) {
 }
 
 // Установка значений клеток игрового поля
-function getNumberedGrid(mt: MagicTableType) {
+function getNumberedGrid(mt: MagicTableType): Array<Array<number>> {
 
-  // жопа
-  let array = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
-               [0, 0, 0, 0, 0, 0, 0, 0, 0],
-               [0, 0, 0, 0, 0, 0, 0, 0, 0],
-               [0, 0, 0, 0, 0, 0, 0, 0, 0],
-               [0, 0, 0, 0, 0, 0, 0, 0, 0],
-               [0, 0, 0, 0, 0, 0, 0, 0, 0]]
+  let masterArray = new Array<Array<number>>(mt.rowGridNumber)
+  let slaveArray = new Array<number>(mt.columnGridNumber)
 
-  for(let i = 1; i <= mt.papaDecidesWhatNumberToUse; i++) {
-    array[getRandomValue(0, mt.rowGridNumber - 1)][getRandomValue(0, mt.columnGridNumber - 1)] = getRandomValue(mt.minValue, mt.maxValue)
-    array[0][0] = 0 // колхоз
+  for (let i = 0; i < mt.rowGridNumber; i++) {
+    for (let j = 0; j < mt.columnGridNumber; j++) {
+      slaveArray[j] = 0
+    }
+    masterArray[i] = [...slaveArray] // (!)
   }
 
-  return array
+  for(let i = 1; i <= mt.papaGivesAdditionalSteps; i++) {
+    masterArray[getRandomValue(0, mt.rowGridNumber - 1)][getRandomValue(0, mt.columnGridNumber - 1)] = getRandomValue(mt.minValue, mt.maxValue)
+  }
+
+  for(let i = 1; i <= mt.papaBlocksYourWayOff; i++) {
+    masterArray[getRandomValue(0, mt.rowGridNumber - 1)][getRandomValue(0, mt.columnGridNumber - 1)] = 101
+  }
+
+  masterArray[0][0] = 0 // не парясь
+  return masterArray
 }
 
 // Массив значений клеток игрового поля
@@ -114,7 +122,7 @@ const App = () => {
     switch(action) {
 
       case 'UP': {
-        if (ms.value > 0 && ms.x > 0 && grid[ms.x - 1][ms.y] !== 100) {
+        if (ms.value > 0 && ms.x > 0 && grid[ms.x - 1][ms.y] < 100) {
 
           msc.x = ms.x - 1
           msc.y = ms.y
@@ -124,7 +132,7 @@ const App = () => {
       }
 
       case 'LEFT': {
-        if (ms.value > 0 && ms.y > 0 && grid[ms.x][ms.y - 1] !== 100) {
+        if (ms.value > 0 && ms.y > 0 && grid[ms.x][ms.y - 1] < 100) {
 
           msc.x = ms.x
           msc.y = ms.y - 1
@@ -135,7 +143,7 @@ const App = () => {
 
       case 'RIGHT': {
         if (ms.value > 0 && ms.y < ms.columnGridNumber - 1
-          && grid[ms.x][ms.y + 1] !== 100) {
+          && grid[ms.x][ms.y + 1] < 100) {
     
             msc.x = ms.x
             msc.y = ms.y + 1
@@ -146,7 +154,7 @@ const App = () => {
       
       case 'DOWN': {
         if (ms.value > 0 && ms.x < ms.rowGridNumber - 1
-          && grid[ms.x + 1][ms.y] !== 100) {
+          && grid[ms.x + 1][ms.y] < 100) {
           
             msc.x = ms.x + 1
             msc.y = ms.y
@@ -174,16 +182,14 @@ const App = () => {
     <div className="App">
 
       <MagicTable value={grid} />
-
       <MagicSquare value={magicSquare.value}
       x={magicSquare.x}
       y={magicSquare.y}
       upButtonClickHandler={UpButtonClickHandler}
       leftButtonClickHandler={LeftButtonClickHandler}
       rightButtonClickHandler={RightButtonClickHandler}
-      downButtonClickHandler={DownButtonClickHandler}
-      />
-
+      downButtonClickHandler={DownButtonClickHandler} />
+      
     </div>
   )
 }
