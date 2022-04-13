@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/magicsquare/static/css/main.3535fca4.css",
-    "main.js": "/magicsquare/static/js/main.407fb0d9.js",
+    "main.css": "/magicsquare/static/css/main.dc4029e8.css",
+    "main.js": "/magicsquare/static/js/main.fc7bb5b2.js",
     "static/js/787.8b1cd2d5.chunk.js": "/magicsquare/static/js/787.8b1cd2d5.chunk.js",
+    "static/media/logo.svg": "/magicsquare/static/media/logo.7670cd18d273301b55ecdce28cde94a1.svg",
     "index.html": "/magicsquare/index.html",
-    "main.3535fca4.css.map": "/magicsquare/static/css/main.3535fca4.css.map",
-    "main.407fb0d9.js.map": "/magicsquare/static/js/main.407fb0d9.js.map",
+    "main.dc4029e8.css.map": "/magicsquare/static/css/main.dc4029e8.css.map",
+    "main.fc7bb5b2.js.map": "/magicsquare/static/js/main.fc7bb5b2.js.map",
     "787.8b1cd2d5.chunk.js.map": "/magicsquare/static/js/787.8b1cd2d5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3535fca4.css",
-    "static/js/main.407fb0d9.js"
+    "static/css/main.dc4029e8.css",
+    "static/js/main.fc7bb5b2.js"
   ]
 }
