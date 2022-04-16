@@ -1,3 +1,5 @@
+[![Magic Square](WhatItLooksLike.jpg "Magic Square by PapaProger")](https://papaproger.github.io/magicsquare/)
+
 # Magic Square - enjoy your adventure!
 
 Contents
@@ -12,7 +14,7 @@ Contents
 About
 ---
 
-Move the square over the grid. Cast a glance at the screenshot [here](https://github.com/papaproger/magicsquare/blob/main/WhatItLooksLike.jpg). Play the game [here](https://papaproger.github.io/magicsquare/).
+Move the square over the grid. Play the game [here](https://papaproger.github.io/magicsquare/).
 
 by
 ---
