@@ -6,13 +6,12 @@ import step from './step.svg'
 
 type PropsType = {
     v: number
-    index: number
 }
 
 const MagicCell = React.memo((props: PropsType) => {
 
     return (
-        <td key={props.index}>{props.v === 0 ? '' :
+        <td>{props.v === 0 ? '' :
             props.v === 100 ? <img src={step} className="step" alt="X" /> :
                 props.v === 101 ? <img src={logo} className="logo" alt="O" /> : props.v}</td>
     )

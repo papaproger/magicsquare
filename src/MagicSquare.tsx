@@ -23,7 +23,7 @@ const MagicSquare = React.memo((props: PropsType) => {
                 <button onClick={() => props.preMoveHandler('LEFT')}>L</button>
             </div>
             <div className="square5">
-                <table><tr><td>{props.value}</td></tr></table>
+                <table><tbody><tr><td>{props.value}</td></tr></tbody></table>
             </div>
             <div className="square6">
                 <button onClick={() => props.preMoveHandler('RIGHT')}>R</button>

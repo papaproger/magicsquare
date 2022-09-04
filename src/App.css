@@ -4,30 +4,43 @@
 
 .App {
   text-align: center;
+
   font-weight: bold;
   font-size: large;
+
   color: white;
 }
 
-/* захотел разметить так */
+/* запрет выделения текста */
+div {
+  user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+}
+
+/* нет нужды в явной разметке */
 .magicsquare {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+
+  transition: top 250ms ease-in-out 50ms, left 250ms ease-in-out 50ms;
+
   display: grid;
-  
+  /*
   grid-template-areas:
   "s1 s2 s3"
   "s4 s5 s6"
   "s7 s8 s9";
-  
+  */
   grid-template-rows: 1fr 2fr 1fr;
   grid-template-columns: 1fr 2fr 1fr;
   /*grid-gap: 5px;*/
-
-  width: 120px;
-  height: 120px;
-  position: absolute;
-  transition: top 250ms ease-in-out 50ms, left 250ms ease-in-out 50ms;
 }
 
+/*
 .square1 { grid-area: s1; }
 .square2 { grid-area: s2; }
 .square3 { grid-area: s3; }
@@ -37,17 +50,20 @@
 .square7 { grid-area: s7; }
 .square8 { grid-area: s8; }
 .square9 { grid-area: s9; }
+*/
 
 .magicsquare button {
   width: 100%;
   height: 100%;
-  background-color: rgb(36, 36, 36);
+
   color: white;
+  background-color: rgb(36, 36, 36);
+  
   border: 1px solid white;
   border-radius: 5px;
-}
 
-.magicsquare button {
+  cursor: pointer;
+
   transition: box-shadow 200ms linear;
 }
 
@@ -64,13 +80,15 @@
   position: absolute;
   left: 10px;
   top: 10px;
+  
   background-color: rgb(36, 36, 36);
 }
 
 .grid td {
-  border: 1px dotted gray;
   min-width: 114px;
   height: 114px;
+
+  border: 1px dotted gray;
 }
 
 .step {
@@ -80,9 +98,10 @@
 
 /* вращающееся лого */
 .logo {
-  pointer-events: none;
   width: 80px;
   height: 80px;
+
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {

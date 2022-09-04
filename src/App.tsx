@@ -55,7 +55,7 @@ export type ActionType = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT'
 
 // Генерирует число в заданном диапазоне
 function getRandomValue(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min
+  return Math.floor(Math.random() * (max - min + 1)) + min /* + 1 */
 }
 
 // Установка значений клеток игрового поля
@@ -91,8 +91,8 @@ const App = () => {
   let [[grid, magicSquare], setGameParams] = useState<[Array<Array<number>>, MagicSquareType]>([
     getNumberedGrid(magicTable),
     {
-      rowGridNumber: 6,
-      columnGridNumber: 9,
+      rowGridNumber: magicTable.rowGridNumber,
+      columnGridNumber: magicTable.columnGridNumber,
       value: getRandomValue(magicTable.minValue, magicTable.maxValue),
       x: 0,
       y: 0,

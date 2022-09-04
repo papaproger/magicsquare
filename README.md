@@ -14,7 +14,7 @@ Contents
 About
 ---
 
-Move the square over the grid. Play the game [here](https://papaproger.github.io/magicsquare/).
+Move the square over the grid. [Play it now!](https://papaproger.github.io/magicsquare/)
 
 by
 ---

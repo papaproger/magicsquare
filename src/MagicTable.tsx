@@ -11,8 +11,10 @@ const MagicTable = React.memo((props: PropsType) => {
 
     return (
         <table className="grid">
-            {props.grid.map(v =>
-                (<tr>{v.map((v, index) => <MagicCell v={v} index={index} />)}</tr>))}
+            <tbody>
+                {props.grid.map((v, i) =>
+                    (<tr key={i}>{v.map((v, j) => <MagicCell key={`${i}-${j}`} v={v} />)}</tr>))}
+            </tbody>
         </table>
     )
 })
